@@ -892,18 +892,10 @@
     <audio id="music" loop>
 
         <source
-            src="muzik.mp3"
+            src="muzik.mp3.mp3"
             type="audio/mpeg">
 
     </audio>
-
-
-    <button id="musicButton">
-
-        🎵 MÜZİĞİ AÇ
-
-    </button>
-
 
     <!-- =====================================================
          ANA KART
@@ -1630,63 +1622,34 @@
         /* =====================================================
            MÜZİK
         ===================================================== */
+/* =====================================================
+   OTOMATİK MÜZİK
+===================================================== */
 
-        let musicPlaying = false;
+window.addEventListener("load", function () {
 
+    music.volume = 0.7;
 
-        musicButton.addEventListener(
+    music.play().catch(function () {
+
+        document.addEventListener(
             "click",
-            function () {
+            function startMusic() {
 
+                music.play();
 
-                /*
-                 * Eğer müzik dosyası eklenmemişse
-                 */
+                document.removeEventListener(
+                    "click",
+                    startMusic
+                );
 
-                if (
-                    music.children.length === 0
-                ) {
-
-                    alert(
-                        "Önce index.html ile aynı klasöre muzik.mp3 dosyasını koymalısın ❤️"
-                    );
-
-                    return;
-
-                }
-
-
-                if (!musicPlaying) {
-
-
-                    music.play();
-
-
-                    musicPlaying = true;
-
-
-                    musicButton.innerHTML =
-                        "🔊 MÜZİK AÇIK";
-
-
-                } else {
-
-
-                    music.pause();
-
-
-                    musicPlaying = false;
-
-
-                    musicButton.innerHTML =
-                        "🎵 MÜZİĞİ AÇ";
-
-                }
-
-            }
+            },
+            { once: true }
         );
 
+    });
 
+});
     </script>
 
 </body>
